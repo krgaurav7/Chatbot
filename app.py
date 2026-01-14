@@ -1,6 +1,5 @@
 import streamlit as st
-from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
-from src.agents.chat_agent.nodes.chat_node import chat
+import requests
 
 st.title("Chat Bot")
 
@@ -20,10 +19,14 @@ if prompt := st.chat_input("What is up?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    state = ChatAgentState(messages = st.session_state.messages)
-    response = chat(state)
+    response = requests.post(
+        url = "http://localhost:8000/chat",
+        params = {
+            "message" : prompt
+        }
+    ).json()["messages"] #connect to FastAPI server
 
-    #response = f"Echo: {prompt}"
+
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
         st.markdown(response)
