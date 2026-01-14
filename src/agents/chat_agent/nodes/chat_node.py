@@ -13,4 +13,6 @@ def chat(state : ChatAgentState) -> ChatAgentState:
         api_key=GROQ_API_KEY
     )
 
-    return {"messages" : model.invoke(state["messages"]).content}
+    answer = model.invoke(state["messages"])
+
+    return {"messages" : [answer]}
