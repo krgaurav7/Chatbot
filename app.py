@@ -24,7 +24,7 @@ if prompt := st.chat_input("What is up?"):
         params = {
             "message" : prompt
         }
-    ).json()["messages"] #connect to FastAPI server
+    ).json()["messages"][-1]["content"] # -1 to get the latest message from assistant
 
 
     # Display assistant response in chat message container

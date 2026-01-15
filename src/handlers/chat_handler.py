@@ -13,4 +13,13 @@ def chat_agent_handler(message : str) -> ChatAgentState:
    :return: Description
    :rtype: dict[str, str]
    """
-   return graph.invoke({"messages" : [HumanMessage(content = message)]}) # Note: 'graph' needs to be defined elsewhere and should represent the compiled state graph for the chat agent.
+   return graph.invoke(
+      input = {
+         "messages" : [HumanMessage(content = message)]
+               },
+               config={
+                  "configurable" : {
+                     "thread_id" : "1"
+                  }
+               }
+      ) # Note: 'graph' needs to be defined elsewhere and should represent the compiled state graph for the chat agent.
