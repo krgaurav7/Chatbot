@@ -22,9 +22,9 @@ if prompt := st.chat_input("What is up?"):
     response = requests.post(
         url = "http://localhost:8000/chat",
         params = {
-            "message" : prompt
+            "message" : prompt,
         }
-    ).json()["messages"][-1]["content"] # -1 to get the latest message from assistant
+    ).json()["messages"][-1]["content"]
 
 
     # Display assistant response in chat message container
