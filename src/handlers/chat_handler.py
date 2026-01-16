@@ -19,7 +19,7 @@ def chat_agent_handler(thread_id : str , message : str) -> ChatAgentState:
                },
                config={
                   "configurable" : {
-                     "thread_id" : [thread_id]
+                     "thread_id" : thread_id
                   }
                }
       ) # Note: 'graph' needs to be defined elsewhere and should represent the compiled state graph for the chat agent.
@@ -42,6 +42,6 @@ def chat_history_handler(thread_id : str) :
    """
    return graph.get_state(config = {
       "configurable" : {
-         "thread_id" : [thread_id]
+         "thread_id" : thread_id
       }
    })[0]  #or we use ["channel_values"]

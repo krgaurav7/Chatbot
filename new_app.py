@@ -5,9 +5,9 @@ import uuid
 
 BASE_URL = "http://localhost:8000"
 
-st.title("🧠 Chat Bot ")
-
 st.set_page_config(layout="wide")
+
+st.title("🧠 Chat Bot ")
 
 # ------------------ Helpers ------------------
 
@@ -22,13 +22,13 @@ def get_threads():
     return r.json()
 
 def get_history(thread_id):
+    print(type(thread_id))
     print(thread_id)
 
     r = requests.get(
         url=f"{BASE_URL}/chat/history/{thread_id}"
     )
     r.raise_for_status()
-    print(r.json())
     return r.json()["messages"]
 
 def send_message(thread_id, message):
