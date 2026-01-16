@@ -36,7 +36,7 @@ def get_all_threads_handler():
       threads.add(checkpoint.config["configurable"]["thread_id"])
    return list(threads)
 
-def chat_history_handler(thread_id : str):
+def chat_history_handler(thread_id : str) :
    """
    Docstring for chat_history_handler
    """
@@ -44,4 +44,4 @@ def chat_history_handler(thread_id : str):
       "configurable" : {
          "thread_id" : [thread_id]
       }
-   })[0] 
+   })[0]  #or we use ["channel_values"]

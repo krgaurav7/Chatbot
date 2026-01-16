@@ -25,7 +25,7 @@ def get_all_threads() -> list[str | None]:
     return get_all_threads_handler()
 
 @router.get("/chat/history/{thread_id}")
-def get_chat_history(thread_id : str):
+def get_chat_history(thread_id : str) -> ChatAgentState | dict[None , None]:
     """
     Docstring for get_chat_history
     """
