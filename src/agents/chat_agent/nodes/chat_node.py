@@ -1,7 +1,7 @@
 from langchain_groq import ChatGroq
 from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
 from dotenv import load_dotenv
-from agents.chat_agent.tools.date_time import get_current_date_time
+from src.agents.chat_agent.tools.date_time import get_current_date_time
 import os
 
 load_dotenv()
