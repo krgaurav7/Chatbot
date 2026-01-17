@@ -99,8 +99,9 @@ for msg in st.session_state.messages:
         with st.chat_message("user"):
             st.markdown(msg["content"])
     elif role == "ai":
-        with st.chat_message("assistant"):
-            st.markdown(msg["content"])
+        if msg["content"]:
+            with st.chat_message("assistant"):
+                st.markdown(msg["content"])
     # elif role == "system":
     #     with st.chat_message("system"):
     #         st.write(msg["content"])
@@ -117,10 +118,13 @@ if user_input:
     })
 
     # Call backend
-    updated_messages = send_message(
-        st.session_state.current_thread,
-        user_input
-    )
+    import time
+    with st.spinner("Thinking..." , show_time=True):
+        updated_messages = send_message(
+            st.session_state.current_thread,
+            user_input
+        )
+        time.sleep(4)  # Simulate delay for better UX
 
     st.session_state.messages = updated_messages
     st.rerun()
