@@ -22,8 +22,6 @@ def get_threads():
     return r.json()
 
 def get_history(thread_id):
-    print(type(thread_id))
-    print(thread_id)
 
     r = requests.get(
         url=f"{BASE_URL}/chat/history/{thread_id}"
