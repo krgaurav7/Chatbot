@@ -30,7 +30,7 @@ def chat_stream_route(thread_id : str, message : str):
     """
     return StreamingResponse(
         chat_streaming_handler( thread_id , message ),
-        media_type="text/event-stream"
+        media_type="text/plain"
     )
 
 @router.get("/chat/threads")

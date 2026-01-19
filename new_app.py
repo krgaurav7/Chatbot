@@ -37,6 +37,17 @@ def send_message(thread_id, message):
     r.raise_for_status()
     return r.json()["messages"]
 
+def stream_message(thread_id, message): #add a streaming version
+    r = requests.post(
+        url=f"{BASE_URL}/stream/{thread_id}",
+        params={"message": message},
+        stream=True
+    )
+    r.raise_for_status()
+    for chunk in r.iter_lines():
+        if chunk:
+            yield chunk.decode("utf-8")+ " " + "\n"
+            time.sleep(0.06)  # Simulate streaming delay
 # ------------------ Session State ------------------
 
 if "current_thread" not in st.session_state:
@@ -118,13 +129,28 @@ if user_input:
     })
 
     # Call backend
-    import time
-    with st.spinner("Thinking..." , show_time=True):
-        updated_messages = send_message(
-            st.session_state.current_thread,
-            user_input
-        )
-        time.sleep(4)  # Simulate delay for better UX
+    # import time
+    # with st.spinner("Thinking..." , show_time=True):
+    #     updated_messages = send_message(
+    #         st.session_state.current_thread,
+    #         user_input
+    #     )
+    #     time.sleep(4)  # Simulate delay for better UX
 
-    st.session_state.messages = updated_messages
-    st.rerun()
+    # st.session_state.messages = updated_messages
+    # st.rerun()
+
+    # Streaming version
+    import time
+    with st.spinner("Thinking...", show_time=True):
+        stream_res = st.write_stream(
+            stream_message(
+                st.session_state.current_thread,
+                user_input
+            ),
+            cursor="▍",
+        )
+    st.session_state.messages.append({
+        "type": "ai",
+        "content": stream_res
+    })

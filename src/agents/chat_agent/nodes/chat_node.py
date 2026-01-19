@@ -11,7 +11,8 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 def chat(state : ChatAgentState) -> ChatAgentState:
 
     model = ChatGroq(
-        model = "openai/gpt-oss-120b",
+        # model = "openai/gpt-oss-120b",
+        model = "openai/gpt-oss-safeguard-20b",
         api_key=GROQ_API_KEY
     )
 
