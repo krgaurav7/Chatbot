@@ -127,7 +127,6 @@ if user_input:
         "type": "human",
         "content": user_input
     })
-
     # Call backend
     # import time
     # with st.spinner("Thinking..." , show_time=True):
@@ -139,7 +138,6 @@ if user_input:
 
     # st.session_state.messages = updated_messages
     # st.rerun()
-
     # Streaming version
     import time
     with st.spinner("Thinking...", show_time=True):
@@ -154,3 +152,4 @@ if user_input:
         "type": "ai",
         "content": stream_res
     })
+    st.rerun()
