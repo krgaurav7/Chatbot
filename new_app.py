@@ -44,7 +44,7 @@ def stream_message(thread_id, message): #add a streaming version
         stream=True
     )
     r.raise_for_status()
-    for chunk in r.iter_lines():
+    for chunk in r.iter_lines(decode_unicode=False):
         if chunk:
             yield chunk.decode("utf-8")+ " " + "\n"
             time.sleep(0.06)  # Simulate streaming delay
@@ -127,6 +127,7 @@ if user_input:
         "type": "human",
         "content": user_input
     })
+    
     # Call backend
     # import time
     # with st.spinner("Thinking..." , show_time=True):
