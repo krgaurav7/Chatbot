@@ -3,7 +3,7 @@ from langchain.messages import HumanMessage
 from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
 from typing import Iterator
 
-graph = create_chat_agent_graph_builder()
+#graph = create_chat_agent_graph_builder()
 
 def chat_agent_handler(thread_id : str , message : str) -> ChatAgentState:
    """
@@ -14,6 +14,9 @@ def chat_agent_handler(thread_id : str , message : str) -> ChatAgentState:
    :return: Description
    :rtype: dict[str, str]
    """
+
+   graph = create_chat_agent_graph_builder()
+
    return graph.invoke(
       input = {
          "messages" : [HumanMessage(content = message)]
@@ -34,6 +37,9 @@ def chat_streaming_handler(thread_id : str, message : str) -> Iterator[str]:
    :param message: Description
    :type message: str
    """
+
+   graph = create_chat_agent_graph_builder()
+
    for chunk , metadata in  graph.stream(
       input = {
          "messages" : [HumanMessage(content = message)]
@@ -51,6 +57,9 @@ def get_all_threads_handler():
    """
    Docstring for get_all_threads_handler
    """
+
+   graph = create_chat_agent_graph_builder()
+
    all_checkpoints = graph.checkpointer.list(config = {})
 
    threads = set()
@@ -63,6 +72,9 @@ def chat_history_handler(thread_id : str) :
    """
    Docstring for chat_history_handler
    """
+
+   graph = create_chat_agent_graph_builder()
+
    return graph.get_state(config = {
       "configurable" : {
          "thread_id" : thread_id

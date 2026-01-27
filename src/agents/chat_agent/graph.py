@@ -4,9 +4,11 @@ from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
 from src.agents.chat_agent.nodes.tool_executor_node import tool_executor_node
 from src.agents.chat_agent.nodes.should_continue import should_continue
 from src.agents.chat_agent.nodes.chat_node import chat
-from langgraph.checkpoint.memory import MemorySaver
+from src.services.database_service import db_manager
 
-checkpointer = MemorySaver()
+#checkpointer = MemorySaver()
+
+#checkpointer = PostgresSaver(POOL)
 
 def create_chat_agent_graph_builder() -> CompiledStateGraph:
     """
@@ -24,5 +26,8 @@ def create_chat_agent_graph_builder() -> CompiledStateGraph:
     )
 
     graph_builder.add_edge("tool_executor_node", "chat_node")
+    
+    checkpointer = db_manager.get_saver()
 
-    return graph_builder.compile(checkpointer = checkpointer)
+    graph = graph_builder.compile(checkpointer=checkpointer)
+    return graph
